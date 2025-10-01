@@ -32,14 +32,22 @@ jobs:
           cat users.yml >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+  
+  use-variable:
+    runs-on: ubuntu-latest
+    needs: read-users
+    environment:
+      name: approval-required
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
       - name: Use the variable in another step
-        environment:
-        name: approval-required
         run: |
-          echo "Using the variable from previous step:"
+          echo "Using the variable (requires approval):"
           echo "=========================="
-          echo "${{ steps.read-file.outputs.users_data }}"
+          cat users.yml
           echo "=========================="
           echo " and do something like this:"
           echo "./dbeaver  yoursqlcode.sql ${{ steps.read-file.outputs.users_data }}"
