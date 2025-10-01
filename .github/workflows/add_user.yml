@@ -31,8 +31,7 @@ jobs:
           {
             echo 'users_data<<EOF'
             cat users.yml
-            echo EOF
-          } >> $GITHUB_OUTPUT
+           } >> $GITHUB_OUTPUT
       
       - name: Use the variable in another step
         run: |
