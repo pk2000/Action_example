@@ -28,10 +28,10 @@ jobs:
           echo "=========================="
           
           # Save to output for use in other steps
-          {
-            echo 'users_data<<EOF'
-            cat users.yml
-           } >> $GITHUB_OUTPUT
+          echo "users_data<<EOF" >> $GITHUB_OUTPUT
+          cat users.yml >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       
       - name: Use the variable in another step
         run: |
