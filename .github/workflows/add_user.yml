@@ -1,0 +1,44 @@
+name: create users from file
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  read-users:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Read users.yml into variable
+        id: read-file
+        run: |
+          # Read file content into variable
+          USERS_CONTENT=$(cat users.yml)
+          
+          # Display the variable content
+          echo "📄 Variable contents:"
+          echo "=========================="
+          echo "$USERS_CONTENT"
+          echo "=========================="
+          
+          # Save to output for use in other steps
+          {
+            echo 'users_data<<EOF'
+            cat users.yml
+            echo EOF
+          } >> $GITHUB_OUTPUT
+      
+      - name: Use the variable in another step
+        run: |
+          echo "Using the variable from previous step:"
+          echo "=========================="
+          echo "${{ steps.read-file.outputs.users_data }}"
+          echo "=========================="
+          echo " and do something like this:"
+          echo "./dbeaver  yoursqlcode.sql ${{ steps.read-file.outputs.users_data }}"

@@ -1,0 +1,8 @@
+test_users:
+  - name: User A
+    email: user.a@example.com
+  - name: User B
+    email: user.b@example.com
+  - name: User C
+    email: user.c@example.com
+    
