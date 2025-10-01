@@ -22,7 +22,7 @@ jobs:
           USERS_CONTENT=$(cat users.yml)
           
           # Display the variable content
-          echo "📄 Variable contents:"
+          echo "Variable contents:"
           echo "=========================="
           echo "$USERS_CONTENT"
           echo "=========================="
@@ -34,6 +34,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
       
       - name: Use the variable in another step
+        environment:
+        name: approval-required
         run: |
           echo "Using the variable from previous step:"
           echo "=========================="
