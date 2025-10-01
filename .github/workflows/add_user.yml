@@ -22,7 +22,7 @@ jobs:
           USERS_CONTENT=$(cat users.yml)
           
           # Display the variable content
-          echo "📄 Variable contents:"
+          echo "Variable contents:"
           echo "=========================="
           echo "$USERS_CONTENT"
           echo "=========================="
@@ -32,12 +32,21 @@ jobs:
           cat users.yml >> $GITHUB_OUTPUT
           echo "" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+  
+  use-variable:
+    runs-on: ubuntu-latest
+    needs: read-users
+    environment:
+      name: approval-required
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       
       - name: Use the variable in another step
         run: |
-          echo "Using the variable from previous step:"
+          echo "Using the variable (requires approval):"
           echo "=========================="
-          echo "${{ steps.read-file.outputs.users_data }}"
+          cat users.yml
           echo "=========================="
           echo " and do something like this:"
           echo "./dbeaver  yoursqlcode.sql ${{ steps.read-file.outputs.users_data }}"

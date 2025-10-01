@@ -5,4 +5,7 @@ test_users:
     email: user.b@example.com
   - name: User C
     email: user.c@example.com
+  - name: User D
+    email: user.d@example.com
+    
     
